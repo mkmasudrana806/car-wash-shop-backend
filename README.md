@@ -50,6 +50,8 @@ The main focus of this assignment is to implement modules pattern, QueryBuilder,
 - **GET** `/users/:id` - Retrieve a user by ID.
 - **DELETE** `/users/:id` - Delete a user by ID.
 - **PUT** `/users/:id` - Update a user by ID.
+- **PATCH** `/toggle-user-role/:id` - Toggle user role
+- ** PATCH** `/toggle-user-status/:id` - Toggle user status
 
 ### Service:
 
@@ -67,6 +69,7 @@ The main focus of this assignment is to implement modules pattern, QueryBuilder,
 - **GET** `/slots/availability` - Check slot availability.
 - **GET** `/slots/:id` - Retrieve a slot by ID.
 - **DELETE** `/slots/:id` - Delete a slot by ID.
+- **PATCH** `/toggle-slot-status/:id` - Toggle slot status available to cancel
 
 ### Booking:
 
