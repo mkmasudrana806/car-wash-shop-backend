@@ -80,6 +80,15 @@ The main focus of this assignment is to implement modules pattern, QueryBuilder,
 - **PUT** `/bookings/:id` - Update a booking by ID.
 - **GET** `/my-bookings` - Retrieve bookings for the logged-in user.
 
+
+### Review:
+
+- **POST** `/create-review` - Create a new review.
+- **GET** `/reviews/` - Retrieve all reviews.
+- **GET** `/reviews/:id` - Retrieve a review by ID.
+- **DELETE** `/reviews/:id` - Delete a review by ID.
+- **PUT** `/reviews/:id` - Update a review by ID.
+  
 ## Installation
 
 To get the project up and running locally, follow these steps:
