@@ -2,7 +2,11 @@
 
 ## Important Links
 
-1. **Live Deployment Link :**
+1. **Client Live Deployment Link :**
+
+- [Live Client](https://car-washing-system-client-gilt.vercel.app/)
+  
+1. **Server Live Deployment Link :**
 
 - [Live Server](https://car-washing-system-murex.vercel.app/)
 
@@ -14,7 +18,7 @@
 
 - [GitHub Repository](https://lucid.app/lucidchart/f21c8e56-5e00-49d2-bfe0-63c481cf82db/edit?invitationId=inv_413310db-2aea-4e32-9378-a5af18b437e7)
 
-2. **Project Document Link :**
+4. **Project Document Link :**
 
 - [GitHub Repository](https://docs.google.com/document/d/11OLX93_1ri539-OFr4NE1TUVhRn-irp9wD2l28NpacE/edit?usp=sharing)
 
