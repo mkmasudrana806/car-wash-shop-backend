@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["https://car-washing-system-client-gilt.vercel.app"],
     credentials: true,
   })
 );
@@ -20,6 +20,7 @@ app.use(
 app.use("/api", router);
 
 app.get("/", (req, res) => {
+  console.log("current date: ", new Date().toLocaleString());
   res.send("Car Washing Server is running...");
 });
 

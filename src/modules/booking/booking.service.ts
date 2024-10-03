@@ -71,8 +71,10 @@ const createBookingIntoDB = async (user: JwtPayload, payload: TBooking) => {
     payment_method_types: ["card"],
     mode: "payment",
     line_items: line_items,
-    success_url: "http://localhost:5173/user/purchase-success",
-    cancel_url: "http://localhost:5173/user/purchase-faild",
+    success_url:
+      "https://car-washing-system-client-gilt.vercel.app/user/purchase-success",
+    cancel_url:
+      "https://car-washing-system-client-gilt.vercel.app/user/purchase-faild",
   });
 
   const session = await mongoose.startSession();

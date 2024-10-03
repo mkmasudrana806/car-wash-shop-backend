@@ -2,6 +2,7 @@ import { Server } from "http";
 import app from "./app";
 import config from "./app/config";
 import mongoose from "mongoose";
+import seedAdmin from "./DB";
 
 require("dotenv").config();
 
@@ -14,6 +15,10 @@ async function main() {
     await mongoose.connect(config.database_url as string); // remote mongodb
     // await mongoose.connect("mongodb://localhost:27017/car"); // local mongodb
     console.log("Database Connected!");
+
+    // seed admin to database
+    await seedAdmin();
+
     server = app.listen(config.app_port, () => {
       console.log(`Server listening on port ${config.app_port}`);
     });
