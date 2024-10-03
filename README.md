@@ -763,6 +763,10 @@ You must include "Bearer" at the beginning of the token!
 - JWT
 - Zod Validation
 - bcrypt
+- Stripe
+- Cloudinar
+- Nodemailer
+- Multer
 
 ## Project Structure
 
@@ -774,7 +778,7 @@ You must include "Bearer" at the beginning of the token!
 
 **middlewares/** auth, globalErrorHandler, notFound, validateRequest middlewares
 
-**modules/** contains all models like user, auth, service, slot, booking. each module contains routes, controller, service, validation, constants, model and utils files
+**modules/** contains all models like user, auth, service, slot, booking and review. each module contains routes, controller, service, validation, constants, model and utils files
 
 **routes/** Centralized route management for the API.
 
