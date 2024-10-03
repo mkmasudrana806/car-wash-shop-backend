@@ -35,6 +35,7 @@ The main focus of this assignment is to implement modules pattern, QueryBuilder,
 - **Service Management:** Define and manage car washing services with detailed descriptions, pricing, and availability.
 - **Slot Management:** Manage time slots for services, allowing users to book specific times.
 - **Booking Management:** Enable users to book services at available time slots and manage these bookings.
+- **Reviews Management:** Enable users to review services and rate services, also edit and delete review
 
 ## API’s Endpoints
 
