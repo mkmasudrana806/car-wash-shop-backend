@@ -1,41 +1,30 @@
-# Car Wash Booking System
+# Travel Tips And Destination Guides
 
 ## Important Links
 
 1. **Client Live Deployment Link :**
 
-- [Live Client](https://car-washing-system-client-gilt.vercel.app/)
-  
+- [Live Client](https://travel-tips-and-destination-guides-client.vercel.app/)
+
 1. **Server Live Deployment Link :**
 
-- [Live Server](https://car-washing-system-murex.vercel.app/)
+- [Live Server](https://travel-tips-and-destination-guides-backend.vercel.app)
 
 2. **GitHub Repository Link :**
 
-- [GitHub Repository](https://github.com/mkmasudrana806/car-washing-system-backend)
+- [Client](https://github.com/mkmasudrana806/Travel-Tips-AndDestination-Guides-Client)
 
-3. **ER Diagram Link :**
-
-- [GitHub Repository](https://lucid.app/lucidchart/f21c8e56-5e00-49d2-bfe0-63c481cf82db/edit?invitationId=inv_413310db-2aea-4e32-9378-a5af18b437e7)
-
-4. **Project Document Link :**
-
-- [GitHub Repository](https://docs.google.com/document/d/11OLX93_1ri539-OFr4NE1TUVhRn-irp9wD2l28NpacE/edit?usp=sharing)
+- [Server](https://github.com/mkmasudrana806/Travel-Tips-And-Destination-Guides-Backend)
 
 ## Overview
 
-The Car Washing System project is a backend application designed to manage various entities and processes related to a car washing business, using a well-structured REST API. The project provides comprehensive functionality for managing different user types, authorization, services, and operations within the system.
-
-The main focus of this assignment is to implement modules pattern, QueryBuilder, Error Handling, CRUD operations, Authentication & Authorization, Transaction & Rollback etc.
+This project is a backend system designed to support a travel tips and destination guides platform. It is built with Node.js and TypeScript and follows a modular structure, enabling efficient handling of various features such as user authentication, post management, and file uploads. The backend is structured to provide RESTful API endpoints for travel-related insights, comments, and more. It integrates services like payments and user management and supports robust database operations with reusable query builders and middleware for security and efficiency.
 
 ## Features
 
-- **User Management:** Create, update, and delete user accounts with role-based access control.
-- **Authentication:** Secure user authentication using JWT for login, registration, and token management.
-- **Service Management:** Define and manage car washing services with detailed descriptions, pricing, and availability.
-- **Slot Management:** Manage time slots for services, allowing users to book specific times.
-- **Booking Management:** Enable users to book services at available time slots and manage these bookings.
-- **Reviews Management:** Enable users to review services and rate services, also edit and delete review
+- **User Management:** Create, update user accounts with role-based access control.
+- **Authentication:** Secure user authentication using JWT for login, registration, change password, reset password and token management
+- **Post, Payment and Insight**: Both user and admin has the dashboard for valuable insights
 
 ## API’s Endpoints
 
@@ -44,52 +33,51 @@ The main focus of this assignment is to implement modules pattern, QueryBuilder,
 - **POST** `/auth/signup` - Sign up a new user.
 - **POST** `/auth/login` - Log in a user.
 - **POST** `/auth/change-password` - Change a user's password.
+- **POST** `/auth/reset-password` - reset user's password.
+- **Post** `/auth/refresh-token` - refresh token for session
 
 ### User:
 
-- **GET** `/users` - Retrieve all users.
-- **GET** `/users/:id` - Retrieve a user by ID.
-- **DELETE** `/users/:id` - Delete a user by ID.
-- **PUT** `/users/:id` - Update a user by ID.
-- **PATCH** `/toggle-user-role/:id` - Toggle user role
-- ** PATCH** `/toggle-user-status/:id` - Toggle user status
+- **POST** `/create-user` - Create a new user (TODO: add file upload for user registration).
+- **GET** `/` - Retrieve all users (Admin only).
+- **GET** `/getMe` - Retrieve current user information (Authenticated users only).
+- **GET** `/:id` - Retrieve a user by ID.
+- **DELETE** `/:id` - Delete a user by ID (Admin only).
+- **PATCH** `/update-profile` - Update the profile of the authenticated user.
+- **PATCH** `/update-profile-picture` - Update the user's profile picture.
+- **PATCH** `/toggle-user-status/:id` - Toggle a user's status (Admin only).
+- **PATCH** `/toggle-user-role/:id` - Toggle a user's role (Admin only).
+- **POST** `/user-verified` - Mark a user as verified (User only, requires payment validation).
+- **POST** `/premium-access` - Grant premium access to a user (User only, requires payment validation).
+- **PATCH** `/follow-unfollow/:targetUserId` - Follow or unfollow a user (User only).
+- **GET** `/follow-status/:targetUserId` - Check if the authenticated user follows a target user.
+- **POST** `/followers-followings` - Retrieve the user's followers and following lists.
 
-### Service:
+### Posts:
 
-- **POST** `/services/create-service` - Create a new service.
-- **GET** `/services` - Retrieve all services.
-- **GET** `/services/:id` - Retrieve a service by ID.
-- **DELETE** `/services/:id` - Delete a service by ID.
-- **PUT** `/services/:id` - Update a service by ID.
-- **POST** `/services/slots` - Create time slots for a service.
+- **POST** `/create-post` - Create a new post with file upload (Authenticated user only).
+- **GET** `/` - Retrieve all posts.
+- **GET** `/my-posts/:userId` - Retrieve all posts created by a specific user.
+- **GET** `/:id` - Retrieve a single post by ID.
+- **PATCH** `/:id` - Update a post by ID (Authenticated user only).
+- **DELETE** `/:id` - Delete a post by ID (Authenticated user or Admin).
+- **PATCH** `/upvote/:postId` - Upvote a post (Authenticated user only).
+- **PATCH** `/downvote/:postId` - Downvote a post (Authenticated user only).
 
-### Slot:
+### Payment:
 
-- **POST** `/slots/create-slot` - Create a new slot.
-- **GET** `/slots` - Retrieve all slots.
-- **GET** `/slots/availability` - Check slot availability.
-- **GET** `/slots/:id` - Retrieve a slot by ID.
-- **DELETE** `/slots/:id` - Delete a slot by ID.
-- **PATCH** `/toggle-slot-status/:id` - Toggle slot status available to cancel
+- **POST** `/upgrade-user` - Upgrade a user to premium.
+- **POST** `/user-verified` - Mark a user as verified.
+- **GET** `/` - Retrieve all payment histories (Admin only).
+- **GET** `/my-payments-history` - Retrieve the payment history of the authenticated user.
+- **POST** `/:id` - Update the payment status by payment ID (Admin only).
 
-### Booking:
+### Insights:
 
-- **POST** `/bookings/create-booking` - Create a new booking.
-- **GET** `/bookings` - Retrieve all bookings.
-- **GET** `/bookings/:id` - Retrieve a booking by ID.
-- **DELETE** `/bookings/:id` - Delete a booking by ID.
-- **PUT** `/bookings/:id` - Update a booking by ID.
-- **GET** `/my-bookings` - Retrieve bookings for the logged-in user.
+- **GET** `/user-insights` - Retrieve insights for the authenticated user.
+- **GET** `/admin-insights` - Retrieve insights for the admin (Admin only).
+- **GET** `/monthly-overview` - Retrieve a monthly overview for charts (Admin only).
 
-
-### Review:
-
-- **POST** `/create-review` - Create a new review.
-- **GET** `/reviews/` - Retrieve all reviews.
-- **GET** `/reviews/:id` - Retrieve a review by ID.
-- **DELETE** `/reviews/:id` - Delete a review by ID.
-- **PUT** `/reviews/:id` - Update a review by ID.
-  
 ## Installation
 
 To get the project up and running locally, follow these steps:
@@ -99,8 +87,8 @@ To get the project up and running locally, follow these steps:
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/mkmasudrana806/car-washing-system-backend.git
-cd car-washing-system-backend
+git clone https://github.com/mkmasudrana806/Travel-Tips-And-Destination-Guides-Backend
+cd Travel-Tips-And-Destination-Guides-Backend
 ```
 
 2. **Install Dependencies:**
@@ -126,631 +114,48 @@ npm start
 Create a .env file in the root of the project and add your variables:
 
 ```bash
-PORT= 5000
-DATABASE_URL= # your database connection url
-# bcrypt salt rounds
+# this is not main `.evn` file. it just example file
+# must include .env file at root directory of your project.
+
+# app port
+PORT=5000
+
+# your local or remote database url
+DATABASE_URL=mongodb://localhost:27017/gymbolt
+
+# user default password
+DEFAULT_PASSWORD=user1234
+
+#becrypt salt rounds
 BCRYPT_SALT_ROUNDS=10
-NODE_ENV=production
-# JWT information
-JWT_ACCESS_SECRET=f15bbb7cf8500d6c759ddfd6214a4b771343d70de56859554a0aad81f0fcce56
+
+# node environment
+NODE_ENVIRONMENT=development #make production before deployment
+
+# jwt token
+JWT_ACCESS_SECRET=4c5a63808e3c8897500c8dcaaba1abc79c783e4de4f44962ae6b5ec3eb50d1e7b04b850f334143eb11b2b9b1b464d76bd77ba7cd501e76365c0b7a989ca87a15
 JWT_ACCESS_EXPIRES_IN=1d
-```
+JWT_REFRESH_SECRET=23f43ef957f8c489b9e589f75c7204608c9d85230ff7608598bd3c51f46a303b5c644aecb5bd5a6104d96c015ca838399ff47a208390a994ee8a4e5a515897c9
+JWT_REFRESH_EXPIRES_IN=365D
+
+# nodemailer user and password
+NODE_MAILER_USER= #your email address
+NODE_MAILER_PASSWORD= #your api key password (collect from gmail security->two factor authentication and create a app key)
+
+# reset password ui link
+RESET_PASSWORD_UI_LINK=http://localhost:5173 #your reset password frontend ui link
+
+#cloudinary
+CLOUDINARY_NAME= #your cloudinary name
+CLOUDINARY_API_KEY= #your cloudinary api key
+CLOUDINARY_SECRET_KEY= #your cloudinary secret key
+
+#amar pay
+STORE_ID=aamarpaytest
+SIGNATURE_KEY=dbb74894e82415a2f7ff0ec3a97e4183
+PAYMENT_URL=https://sandbox.aamarpay.com/jsonpost.php
+PAYMENT_VERIFY_URL= https://sandbox.aamarpay.com/api/v1/trxcheck/request.php
 
-## Usage
-
-### Auth Routes
-
-- **POST** `/auth/signup` - Sign up a new user.
-
-**Request Body:**
-
-```json
-{
-  "name": "Programming Hero",
-  "email": "web@programming-hero.com",
-  "password": "ph-password",
-  "phone": "1234567890",
-  "role": "admin", //role can be user or admin
-  "address": "123 Main Street, City, Country"
-}
-```
-
-**Response**:
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "User registered successfully",
-  "data": {
-    "_id": "60629b8e8cfcd926384b6e5e",
-    "name": "Programming Hero",
-    "email": "web@programming-hero.com",
-    "phone": "1234567890",
-    "role": "admin",
-    "address": "123 Main Street, City, Country",
-    "createdAt": "2024-06-15T12:00:00Z",
-    "updatedAt": "2024-06-15T12:00:00Z"
-  }
-}
-```
-
-###
-
-- **POST** `/auth/login` - Log in a user.
-
-**Request Body:**
-
-```json
-{
-  "email": "web@programming-hero.com",
-  "password": "ph-password"
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "User logged in successfully",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MDYyOWI4ZThjZmNkOTI2Mzg0YjZlNWUiLCJuYW1lIjoiUHJvZ3JhbW1pbmcgSGVyb3MiLCJlbWFpbCI6IndlYkBwcm9ncmFtbWluZy1oZXJvLmNvbSIsInBob25lIjoiMTIzNDU2Nzg5MCIsInJvbGUiOiJhZG1pbiIsImFkZHJlc3MiOiIxMjMgTWFpbiBTdHJlZXQsIENpdHksIENvdW50cnkiLCJpYXQiOjE2MjQ1MTY2MTksImV4cCI6MTYyNDUyMDYxOX0.kWrEphO6lE9P5tvzrNBwx0sNogNuXpdyG-YoN9fB1W8",
-  "data": {
-    "_id": "60629b8e8cfcd926384b6e5e",
-    "name": "Programming Hero",
-    "email": "web@programming-hero.com",
-    "phone": "1234567890",
-    "role": "admin",
-    "address": "123 Main Street, City, Country",
-    "createdAt": "2024-06-15T12:00:00Z",
-    "updatedAt": "2024-06-15T12:00:00Z"
-  }
-}
-```
-
-###
-
-- **POST** `/auth/change-password` - Change a user's password.
-
-**Request Body:**
-
-```json
-{
-  "oldPassword": "soton",
-  "newPassword": "nondini"
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "User password is changed successfully",
-  "data": {
-    "_id": "66bf1f13e8d3e594624b81c1",
-    "name": "soton",
-    "email": "soton@gmail.com",
-    "needsPasswordChange": false,
-    "phone": "01745678910",
-    "role": "user",
-    "address": "Narayanganj, Dhaka, Bangladesh 2.0",
-    "isDeleted": false,
-    "createdAt": "2024-08-16T09:42:43.747Z",
-    "updatedAt": "2024-08-16T09:43:29.216Z",
-    "__v": 0,
-    "passwordChangedAt": "2024-08-16T09:43:29.216Z"
-  }
-}
-```
-
-###
-
-### User Routes:
-
-- **GET** `/users` - Retrieve all users.
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "All users are retrived successfully",
-  "data": [
-    {
-      "_id": "66bf1f13e8d3e594624b81c1",
-      "name": "soton",
-      "email": "soton@gmail.com",
-      "needsPasswordChange": false,
-      "phone": "01745678910",
-      "role": "user",
-      "address": "Narayanganj, Dhaka, Bangladesh 2.0",
-      "isDeleted": false,
-      "createdAt": "2024-08-16T09:42:43.747Z",
-      "updatedAt": "2024-08-16T09:43:29.216Z",
-      "passwordChangedAt": "2024-08-16T09:43:29.216Z"
-    },
-    {
-      "_id": "66bddb88063242aa8e5c6fc5",
-      "name": "Rana",
-      "email": "rana@gmail.com",
-      "needsPasswordChange": true,
-      "phone": "01745678910",
-      "role": "user",
-      "address": "Sirajganj, Rajshahi, Bangladesh 2.0",
-      "isDeleted": false,
-      "createdAt": "2024-08-15T10:42:16.351Z",
-      "updatedAt": "2024-08-15T10:46:22.650Z"
-    }
-    ... and so on
-  ]
-}
-```
-
-- **GET** `/users/:id` - Retrieve a user by ID.
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "User is retrived successfully",
-  "data": {
-    "_id": "66bf1f13e8d3e594624b81c1",
-    "name": "soton",
-    "email": "soton@gmail.com",
-    "needsPasswordChange": false,
-    "phone": "01745678910",
-    "role": "user",
-    "address": "Narayanganj, Dhaka, Bangladesh 2.0",
-    "isDeleted": false,
-    "createdAt": "2024-08-16T09:42:43.747Z",
-    "updatedAt": "2024-08-16T09:43:29.216Z",
-    "__v": 0,
-    "passwordChangedAt": "2024-08-16T09:43:29.216Z"
-  }
-}
-```
-
-- **DELETE** `/users/:id` - Delete a user by ID.
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "User is deleted successfully",
-  "data": {
-    "_id": "66bf1f13e8d3e594624b81c1",
-    "name": "soton",
-    "email": "soton@gmail.com",
-    "needsPasswordChange": false,
-    "phone": "01745678910",
-    "role": "user",
-    "address": "Narayanganj, Dhaka, Bangladesh 2.0",
-    "isDeleted": true,
-    "createdAt": "2024-08-16T09:42:43.747Z",
-    "updatedAt": "2024-08-16T09:51:36.088Z",
-    "__v": 0,
-    "passwordChangedAt": "2024-08-16T09:43:29.216Z"
-  }
-}
-```
-
-- **PUT** `/users/:id` - Update a user by ID.
-
-**Request Body:**
-
-```json
-{
-  "address": "Sirajganj, Rajshahi, Bangladesh 2.0"
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "User is updated successfully",
-  "data": {
-    "_id": "66bf1f13e8d3e594624b81c1",
-    "name": "soton",
-    "email": "soton@gmail.com",
-    "needsPasswordChange": false,
-    "phone": "01745678910",
-    "role": "user",
-    "address": "Sirajganj, Rajshahi, Bangladesh 2.0",
-    "isDeleted": false,
-    "createdAt": "2024-08-16T09:42:43.747Z",
-    "updatedAt": "2024-08-16T10:02:25.500Z",
-    "__v": 0,
-    "passwordChangedAt": "2024-08-16T09:43:29.216Z"
-  }
-}
-```
-
-### Service Routes
-
-- **POST** `/services/create-service` - Create a new service.
-
-**Request Headers:**
-
-```javascript
-Authorization:
-Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmF
-tZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-
-You must include "Bearer" at the beginning of the token!
-```
-
-**Request Body:**
-
-```json
-{
-  "name": "Car Wash",
-  "description": "Professional car washing service",
-  "price": 50,
-  "duration": 60, // Duration in minutes
-  "isDeleted": false
-}
-```
-
-**Response Body:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "Service created successfully",
-  "data": {
-    "_id": "60d9c4e4f3b4b544b8b8d1c5",
-    "name": "Car Wash",
-    "description": "Professional car washing service",
-    "price": 50,
-    "duration": 60,
-    "isDeleted": false,
-    "createdAt": "2024-06-15T12:00:00Z",
-    "updatedAt": "2024-06-15T12:00:00Z"
-  }
-}
-```
-
-- **GET** `/services` - Retrieve all services.
-
-- **GET** `/services/:id` - Retrieve a service by ID.
-
-- **DELETE** `/services/:id` - Delete a service by ID.
-
-- **PUT** `/services/:id` - Update a service by ID.
-
-**Request Headers:**
-
-```javascript
-Authorization:
-Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmF
-tZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-
-You must include "Bearer" at the beginning of the token!
-```
-
-**Request Body:**
-
-```json
-{
-  "price": 700 // You can include any attribute(s) of the service collection that you want to update, one or more.
-}
-```
-
-**Response Body:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "Service updated successfully",
-  "data": {
-    "_id": "60d9c4e4f3b4b544b8b8d1c5",
-    "name": "Car Wash",
-    "description": "Professional car washing service",
-    "price": 700,
-    "duration": 60,
-    "isDeleted": false,
-    "createdAt": "2024-06-15T12:00:00Z",
-    "updatedAt": "2024-06-15T12:00:00Z"
-  }
-}
-```
-
-- **POST** `/services/slots` - Create time slots for a service.
-
-**Request Headers:**
-
-```javascript
-Authorization:
-Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmF
-tZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-
-You must include "Bearer" at the beginning of the token!
-```
-
-**Request Body:**
-
-```json
-{
-  "service": "60d9c4e4f3b4b544b8b8d1c5",
-  "date": "2024-06-15",
-  "startTime": "09:00",
-  "endTime": "14:00"
-}
-```
-
-**Response Body:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "Slots created successfully",
-  "data": [
-    {
-      "_id": "60d9c4e4f3b4b544b8b8d1c6",
-      "service": "60d9c4e4f3b4b544b8b8d1c5",
-      "date": "2024-06-15",
-      "startTime": "09:00",
-      "endTime": "10:00", //look at the starting point
-      "isBooked": "available",
-      "createdAt": "2024-06-15T12:00:00Z",
-      "updatedAt": "2024-06-15T12:00:00Z"
-    },
-    {
-      "_id": "60d9c4e4f3b4b544b8b8d1c7",
-      "service": "60d9c4e4f3b4b544b8b8d1c5",
-      "date": "2024-06-15",
-      "startTime": "10:00",
-      "endTime": "11:00",
-      "isBooked": "available",
-      "createdAt": "2024-06-15T12:00:00Z",
-      "updatedAt": "2024-06-15T12:00:00Z"
-    },
-    {
-      "_id": "60d9c4e4f3b4b544b8b8d1c7",
-      "service": "60d9c4e4f3b4b544b8b8d1c5",
-      "date": "2024-06-15",
-      "startTime": "11:00",
-      "endTime": "12:00",
-      "isBooked": "available",
-      "createdAt": "2024-06-15T12:00:00Z",
-      "updatedAt": "2024-06-15T12:00:00Z"
-    },
-    ... and so on based on service duration
-  ]
-}
-```
-
-### Slot Routes:
-
-- **GET** `/slots` - Retrieve all slots.
-
-- **GET** `/slots/availability` - Check slot availability.
-
-**Query Parameters:**
-
-- `date`: (Optional) The specific date for which available slots are requested (format: YYYY-MM-DD).
-- `serviceId`: (Optional) ID of the service for which available slots are requested.
-
-**Request Example:**
-
-```plain
-  GET /api/slots/availability?date=2024-06-15&serviceId=60d9c4e4f3b4b544b8b8d1c5
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "Available slots retrieved successfully",
-  "data": [
-    {
-      "_id": "60d9c4e4f3b4b544b8b8d1c6",
-      "service": {
-        "_id": "60d9c4e4f3b4b544b8b8d1c5",
-        "name": "Car Wash",
-        "description": "Professional car washing service",
-        "price": 700,
-        "duration": 60,
-        "isDeleted": false,
-        "createdAt": "2024-06-15T12:00:00Z",
-        "updatedAt": "2024-06-15T12:00:00Z"
-      },
-      "date": "2024-06-15",
-      "startTime": "09:00",
-      "endTime": "10:00",
-      "isBooked": "available",
-      "createdAt": "2024-06-15T12:00:00Z",
-      "updatedAt": "2024-06-15T12:00:00Z"
-    },
-    {
-      "_id": "60d9c4e4f3b4b544b8b8d1c9",
-      "service": {
-        "_id": "60d9c4e4f3b4b544b8b8d1c5",
-        "name": "Car Wash",
-        "description": "Professional car washing service",
-        "price": 700,
-        "duration": 60,
-        "isDeleted": false,
-        "createdAt": "2024-06-15T12:00:00Z",
-        "updatedAt": "2024-06-15T12:00:00Z"
-      },
-      "date": "2024-06-15",
-      "startTime": "10:00",
-      "endTime": "11:00",
-      "isBooked": "canceled",
-      "createdAt": "2024-06-15T12:00:00Z",
-      "updatedAt": "2024-06-15T12:00:00Z"
-    }
-  ]
-}
-```
-
-- **GET** `/slots/:id` - Retrieve a slot by ID.
-
-- **DELETE** `/slots/:id` - Delete a slot by ID.
-
-### Booking:
-
-- **POST** `/bookings/create-booking` - Create a new booking.
-
-**Request Headers:**
-
-```javascript
-Authorization:
-Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmF
-tZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-
-You must include "Bearer" at the beginning of the token!
-```
-
-**Request Body:**
-
-```json
-{
-  "serviceId": "60d9c4e4f3b4b544b8b8d1c5",
-  "slotId": "60d9c4e4f3b4b544b8b8d1c6",
-  "vehicleType": "car",
-  "vehicleBrand": "Toyota",
-  "vehicleModel": "Camry",
-  "manufacturingYear": 2020,
-  "registrationPlate": "ABC123"
-}
-```
-
-**Response Body:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "Booking successful",
-  "data": {
-    "_id": "60d9c4e4f3b4b544b8b8d1c7",
-    "customer": {
-      "_id": "123456789012345678901234",
-      "name": "John Doe",
-      "email": "johndoe@example.com",
-      "phone": "1234567890",
-      "address": "123 Main Street, City, Country"
-    },
-    "service": {
-      "_id": "60d9c4e4f3b4b544b8b8d1c5",
-      "name": "Car Wash",
-      "description": "Exterior and interior car cleaning",
-      "price": 50,
-      "duration": 30,
-      "isDeleted": false
-    },
-    "slot": {
-      "_id": "60d9c4e4f3b4b544b8b8d1c6",
-      "service": "60d9c4e4f3b4b544b8b8d1c5",
-      "date": "2024-06-15",
-      "startTime": "09:00",
-      "endTime": "10:00",
-      "isBooked": "booked" // Updated to "booked"
-    },
-    "vehicleType": "car",
-    "vehicleBrand": "Toyota",
-    "vehicleModel": "Camry",
-    "manufacturingYear": 2020,
-    "registrationPlate": "ABC123",
-    "createdAt": "2024-06-15T12:00:00Z", // For this, ensure that your model includes the option to enable timestamps
-    "updatedAt": "2024-06-15T12:00:00Z" // For this, ensure that your model includes the option to enable timestamps
-  }
-}
-```
-
-- **GET** `/bookings` - Retrieve all bookings.
-
-- **GET** `/bookings/:id` - Retrieve a booking by ID.
-
-- **DELETE** `/bookings/:id` - Delete a booking by ID.
-
-- **PUT** `/bookings/:id` - Update a booking by ID.
-
-- **GET** `/my-bookings` - Retrieve bookings for the logged-in user.
-
-**Request Headers:**
-
-```javascript
-Authorization:
-Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmF
-tZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-
-You must include "Bearer" at the beginning of the token!
-```
-
-**Request Body:**
-
-```json
-{
-  "serviceId": "60d9c4e4f3b4b544b8b8d1c5",
-  "slotId": "60d9c4e4f3b4b544b8b8d1c6",
-  "vehicleType": "car",
-  "vehicleBrand": "Toyota",
-  "vehicleModel": "Camry",
-  "manufacturingYear": 2020,
-  "registrationPlate": "ABC123"
-}
-```
-
-**Response Body:**
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "Booking successful",
-  "data": {
-    "_id": "60d9c4e4f3b4b544b8b8d1c7",
-    "customer": {
-      "_id": "123456789012345678901234",
-      "name": "John Doe",
-      "email": "johndoe@example.com",
-      "phone": "1234567890",
-      "address": "123 Main Street, City, Country"
-    },
-    "service": {
-      "_id": "60d9c4e4f3b4b544b8b8d1c5",
-      "name": "Car Wash",
-      "description": "Exterior and interior car cleaning",
-      "price": 50,
-      "duration": 30,
-      "isDeleted": false
-    },
-    "slot": {
-      "_id": "60d9c4e4f3b4b544b8b8d1c6",
-      "service": "60d9c4e4f3b4b544b8b8d1c5",
-      "date": "2024-06-15",
-      "startTime": "09:00",
-      "endTime": "10:00",
-      "isBooked": "booked" // Updated to "booked"
-    },
-    "vehicleType": "car",
-    "vehicleBrand": "Toyota",
-    "vehicleModel": "Camry",
-    "manufacturingYear": 2020,
-    "registrationPlate": "ABC123",
-    "createdAt": "2024-06-15T12:00:00Z",
-    "updatedAt": "2024-06-15T12:00:00Z"
-  }
-}
 ```
 
 ## Technology Stack:
@@ -778,7 +183,7 @@ You must include "Bearer" at the beginning of the token!
 
 **middlewares/** auth, globalErrorHandler, notFound, validateRequest middlewares
 
-**modules/** contains all models like user, auth, service, slot, booking and review. each module contains routes, controller, service, validation, constants, model and utils files
+**modules/** contains all models like user, auth, posts, payment, insights and comments. each module contains routes, controller, service, validation, constants, model and utils files
 
 **routes/** Centralized route management for the API.
 
@@ -787,44 +192,6 @@ You must include "Bearer" at the beginning of the token!
 **app.ts** The main entry point of the application.
 
 **server.ts** Application database connection and server configuration
-
-## Data Modeling
-
-### User Model
-
-- `name`: Full name of the user.
-- `email`: email address used for communication and login.
-- `password`: Securely hashed password for authentication.
-- `phone`: Contact phone number for notifications and updates.
-- `role`**:** The role of the user, which can be one of the following: `admin`, `user`.
-- `address`: Complete physical address for service delivery or correspondence.
-
-### Service Model
-
-- `name`: Title of the service.
-- `description`: Brief description of what the service entails.
-- `price`: Cost of the service in the local currency.
-- `duration`**:** Duration of the service in minutes.
-- `isDeleted`: Indicates whether the service is marked as deleted (false means it is not deleted).
-
-### Slot Model
-
-- `service`: Reference to the specific service being booked.
-- `date`: Date of the booking.
-- `startTime`: Start time of the slot.
-- `endTime`: Approximate end time of the slot.
-- `isBooked`: Status of the slot (available, booked, canceled).
-
-### Booking Model
-
-- `customer`: Reference to the user who made the booking.
-- `service`: Reference to the booked service.
-- `slot`: Reference to the booking slot.
-- `vehicleType`: Type of the vehicle (enum: `car`, `truck`, `SUV`, `van`, `motorcycle`, `bus`, `electricVehicle`, `hybridVehicle`, `bicycle`, `tractor`).
-- `vehicleBrand`: Brand or manufacturer of the vehicle.
-- `vehicleModel`: Model or variant of the vehicle.
-- `manufacturingYear`: Manufacturing year of the vehicle.
-- `registrationPlate`: Unique registration number assigned to the vehicle.
 
 ## Error Handling:
 
